@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp12"
+    android:background="@color/graye"
+    android:layout_marginBottom="1dp"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:text="一招让你告白鼻炎困扰！（赶紧收藏）一招让你告白鼻炎困扰！（赶紧收藏）一招让你告白鼻炎困扰！（赶紧收藏）"
+            android:textColor="@color/black"
+            android:singleLine="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:src="@drawable/test"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="阅读量：10000+"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="分享量：1000+"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
