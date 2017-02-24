@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.module.login.fragment.LoginActivity;
-import com.ar.pay.wechatshare.module.onChangeFragment;
 import com.ar.pay.wechatshare.utils.Constants;
 import com.ar.pay.wechatshare.utils.SharedPreferences;
 import com.jude.beam.bijection.BeamFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.ButterKnife;
 
@@ -22,11 +24,12 @@ import butterknife.ButterKnife;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class CommonFragment extends BeamFragment implements onChangeFragment {
+public class CommonFragment extends BeamFragment  {
 
 
     private View rootView;
     private Fragment fragment;
+    private boolean isRelogin = false;
 
     @Nullable
     @Override
@@ -34,23 +37,44 @@ public class CommonFragment extends BeamFragment implements onChangeFragment {
         if(rootView ==null)
             rootView = inflater.inflate(R.layout.frg_common, container, false);
         ButterKnife.bind(this, rootView);
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(SharedPreferences.getInstance().getBoolean(Constants.IS_LOGIN,false)){
+       if(SharedPreferences.getInstance().getBoolean(Constants.IS_LOGIN,false)){
             fragment = new MineFragment();
         }else{
             fragment = new LoginActivity();
-            ((LoginActivity)fragment).setOnChangeFragment(this);
         }
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
     }
 
     @Override
-    public void onChangeFragment(Fragment fragment) {
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!isRelogin) return;
+        isRelogin = false;
+        onChangeFragment(fragment);
+    }
+
+    @Subscribe
+    public void onEventMainThread(Fragment fragment) {
+        if(fragment instanceof LoginActivity){
+            isRelogin = true;
+            this.fragment = fragment;
+            return;
+        }
+        onChangeFragment(fragment);
+    }
+    private void onChangeFragment(Fragment fragment){
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
@@ -58,5 +82,10 @@ public class CommonFragment extends BeamFragment implements onChangeFragment {
         transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.module.base.BeenFragment;
+import com.ar.pay.wechatshare.widget.CustomTitleBar;
 import com.jude.beam.bijection.RequiresPresenter;
 
 import butterknife.BindView;
@@ -33,14 +33,14 @@ public class FindPwdActivity extends BeenFragment<FindPwdPresenter> {
     EditText tvCode;
     @BindView(R.id.btnSummit)
     Button btnSummit;
-    @BindView(R.id.back)
-    ImageView back;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.btnClose)
     Button btnClose;
     @BindView(R.id.tv_load)
     TextView tvLoad;
+    @BindView(R.id.titleBar)
+    CustomTitleBar titleBar;
     private View rootView;
 
     @Nullable
@@ -57,10 +57,15 @@ public class FindPwdActivity extends BeenFragment<FindPwdPresenter> {
         super.onActivityCreated(savedInstanceState);
         btnSendcode.setOnClickListener(view -> getPresenter().sendCode());
         btnSummit.setOnClickListener(view -> getPresenter().findPwd());
-        back.setOnClickListener(new View.OnClickListener() {
+        titleBar.setOnTitleClickListener(new CustomTitleBar.TitleOnClickListener() {
             @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().popBackStack();
+            public void onLeftClick() {
+                finish();
+            }
+
+            @Override
+            public void onRightClick() {
+
             }
         });
     }

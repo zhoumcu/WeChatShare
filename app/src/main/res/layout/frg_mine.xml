@@ -4,6 +4,34 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.ar.pay.wechatshare.widget.CustomTitleBar
+        android:id="@+id/titleBar"
+        app:show_left_button="false"
+        app:show_right_button="false"
+        app:title_text="我的"
+        app:title_background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
+    <TextView
+        android:text="个人信息"
+        android:layout_marginTop="@dimen/dp8"
+        android:padding="@dimen/sp15"
+        android:drawableRight="@mipmap/box_arrow"
+        android:textColor="@color/black"
+        android:background="@color/graye"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_info" />
 
+    <TextView
+        android:text="我的文章"
+        android:layout_marginTop="@dimen/dp8"
+        android:padding="@dimen/sp15"
+        android:textColor="@color/black"
+        android:background="@color/graye"
+        android:drawableRight="@mipmap/box_arrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_minearticle" />
 </LinearLayout>

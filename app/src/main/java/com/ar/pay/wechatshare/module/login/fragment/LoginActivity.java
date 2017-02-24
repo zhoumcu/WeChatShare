@@ -51,6 +51,18 @@ public class LoginActivity extends BeenFragment<LoginPresenter> {
     LinearLayout btnRegister;
     private View rootView;
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //测试数据
+        phone.setText("18279562014");
+        tvPwd.setText("123456");
+        btnSure.setOnClickListener(view -> getPresenter().login());
+        tvFind.setOnClickListener(view -> getPresenter().findCount());
+        btnPwd.setOnClickListener(view -> getPresenter().findPwd());
+        btnRegister.setOnClickListener(view -> getPresenter().register());
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,17 +70,5 @@ public class LoginActivity extends BeenFragment<LoginPresenter> {
             rootView = inflater.inflate(R.layout.aty_login, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //测试数据
-        phone.setText("13480562458");
-        tvPwd.setText("123456");
-        btnSure.setOnClickListener(view -> getPresenter().login());
-        tvFind.setOnClickListener(view -> getPresenter().findCount());
-        btnPwd.setOnClickListener(view -> getPresenter().findPwd());
-        btnRegister.setOnClickListener(view -> getPresenter().register());
     }
 }

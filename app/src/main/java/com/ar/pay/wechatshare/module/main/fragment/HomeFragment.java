@@ -2,6 +2,7 @@ package com.ar.pay.wechatshare.module.main.fragment;
 
 import android.view.ViewGroup;
 
+import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.entity.ArticleBean;
 import com.ar.pay.wechatshare.module.main.vholder.ArticleViewHolder;
 import com.jude.beam.bijection.RequiresPresenter;
@@ -20,6 +21,11 @@ public class HomeFragment extends BeamListFragment<HomeFragmentPresenter,Article
     @Override
     public BaseViewHolder<ArticleBean> getViewHolder(ViewGroup parent, int viewType) {
         return new ArticleViewHolder(parent);
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.aty_home;
     }
 
     @Override

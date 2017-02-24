@@ -10,6 +10,8 @@ import com.ar.pay.wechatshare.server.ServiceAPI;
 import com.jude.beam.bijection.Presenter;
 import com.jude.utils.JUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import rx.Subscriber;
@@ -47,16 +49,16 @@ public class LoginPresenter extends Presenter<LoginActivity> {
 //                .compose(new SchedulerTransform<>())
 //                .unsafeSubscribe(getLoginSubscriber);
         JUtils.Toast("登录成功！");
-        getView().changeFragment.onChangeFragment(new MineFragment());
+        EventBus.getDefault().post(new MineFragment());
     }
     public void findPwd() {
-        getView().changeFragment.onChangeFragment(new FindPwdActivity());
+        EventBus.getDefault().post(new FindPwdActivity());
     }
     public void findCount() {
-        getView().changeFragment.onChangeFragment(new FindAccountActivity());
+        EventBus.getDefault().post(new FindAccountActivity());
     }
     public void register() {
-        getView().changeFragment.onChangeFragment(new RegisterActivity());
+        EventBus.getDefault().post(new RegisterActivity());
     }
 
     Subscriber<User> getLoginSubscriber = new Subscriber<User>() {

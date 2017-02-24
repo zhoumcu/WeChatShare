@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.module.base.BeenFragment;
+import com.ar.pay.wechatshare.widget.CustomTitleBar;
 import com.jude.beam.bijection.RequiresPresenter;
 
 import butterknife.BindView;
@@ -32,12 +33,14 @@ public class FindAccountActivity extends BeenFragment<FindAccountPresenter> {
     EditText tvCode;
     @BindView(R.id.btnSummit)
     Button btnSummit;
+    @BindView(R.id.titleBar)
+    CustomTitleBar titleBar;
     private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(rootView ==null)
+        if (rootView == null)
             rootView = inflater.inflate(R.layout.aty_findcount, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
@@ -48,5 +51,16 @@ public class FindAccountActivity extends BeenFragment<FindAccountPresenter> {
         super.onActivityCreated(savedInstanceState);
         btnSendcode.setOnClickListener(view -> getPresenter().sendCode());
         btnSummit.setOnClickListener(view -> getPresenter().findAccount());
+        titleBar.setOnTitleClickListener(new CustomTitleBar.TitleOnClickListener() {
+            @Override
+            public void onLeftClick() {
+                finish();
+            }
+
+            @Override
+            public void onRightClick() {
+
+            }
+        });
     }
 }

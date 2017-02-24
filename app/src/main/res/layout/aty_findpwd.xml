@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:background="@color/grayd"
     android:layout_width="fill_parent"
     android:orientation="vertical"
     android:layout_height="fill_parent"
     android:weightSum="1">
-    <include layout="@layout/aty_title"/>
+    <com.ar.pay.wechatshare.widget.CustomTitleBar
+        android:id="@+id/titleBar"
+        app:title_text="找回密码"
+        app:show_right_button="false"
+        app:title_background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:id="@+id/rl_1"
         android:layout_width="fill_parent"
@@ -34,8 +41,7 @@
                 android:singleLine="true"
                 android:textSize="18.0sp"
                 android:layout_toLeftOf="@+id/tv_find"
-                android:layout_toRightOf="@+id/imgPhone"
-                android:layout_toEndOf="@+id/imgPhone" />
+                />
 
             <ImageView
                 android:id="@+id/imgCancel"
@@ -83,7 +89,6 @@
                 android:paddingLeft="15.0dip"
                 android:textSize="18.0sp"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/imgCode"
                 android:layout_toLeftOf="@+id/btn_sendcode"
                 android:layout_toStartOf="@+id/btn_sendcode" />
 
