@@ -6,8 +6,13 @@ import android.view.MenuItem;
 import android.view.ViewStub;
 
 import com.ar.pay.wechatshare.R;
+import com.ar.pay.wechatshare.app.APP;
 import com.ar.pay.wechatshare.module.base.BeenBaseActivity;
 import com.ar.pay.wechatshare.widget.ProgressWebView;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXTextObject;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 
 /**
  * author：Administrator on 2017/2/22 14:53
@@ -16,7 +21,7 @@ import com.ar.pay.wechatshare.widget.ProgressWebView;
  */
 public class ArticlesDetail extends BeenBaseActivity {
     private ProgressWebView webView;
-
+    private String testUrl = "http://mp.weixin.qq.com/s?__biz=MzA5OTcxNDQwNg==&mid=501457379&idx=2&sn=987268b4b884103ac58421b5914b0953&mpshare=1&scene=1&srcid=0222FME9PXJT94mLQUjZhUBK#rd";
     @Override
     public int onCreateView() {
         ActionBar actionBar = getSupportActionBar();
@@ -29,7 +34,7 @@ public class ArticlesDetail extends BeenBaseActivity {
         viewStub.inflate();
         webView = (ProgressWebView)findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://mp.weixin.qq.com/s?__biz=MzA5OTcxNDQwNg==&mid=501457379&idx=2&sn=987268b4b884103ac58421b5914b0953&mpshare=1&scene=1&srcid=0222FME9PXJT94mLQUjZhUBK#rd");
+        webView.loadUrl(testUrl);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class ArticlesDetail extends BeenBaseActivity {
                 finish();
                 return true;
             case R.id.menu_share:
-
+                sendText();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -53,5 +58,45 @@ public class ArticlesDetail extends BeenBaseActivity {
         getMenuInflater().inflate(R.menu.share_menu,menu);
         //如果返回false，创建的菜单无法显示
         return true;
+    }
+    private void sendUrl(){
+        WXWebpageObject webpageObject = new WXWebpageObject();
+        webpageObject.webpageUrl = testUrl;
+
+        WXMediaMessage mediaMessage = new WXMediaMessage(webpageObject);
+        mediaMessage.title = "test";
+        mediaMessage.description = "sdfsdfsd";
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.test);
+//        mediaMessage.thumbData  = Util.bmpToArray(bitmap,true);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webpage");
+        req.message = mediaMessage;
+        //分享到朋友圈（微信版本4.2之前不支持分享到朋友圈）
+//        req.scene = SendMessageToWX.Req.WXSceneTimeline ;
+        //分享给好友
+        req.scene = SendMessageToWX.Req.WXSceneSession;
+        APP.getInstances().api.sendReq(req);
+    }
+    private void sendText(){
+        WXTextObject webpageObject = new WXTextObject();
+        webpageObject.text = testUrl;
+
+        WXMediaMessage mediaMessage = new WXMediaMessage(webpageObject);
+        mediaMessage.description = "sdfsdfsd";
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.test);
+//        mediaMessage.thumbData  = Util.bmpToArray(bitmap,true);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webpage");
+        req.message = mediaMessage;
+        //分享到朋友圈（微信版本4.2之前不支持分享到朋友圈）
+//        req.scene = SendMessageToWX.Req.WXSceneTimeline ;
+        //分享给好友
+        req.scene = SendMessageToWX.Req.WXSceneSession;
+        APP.getInstances().api.sendReq(req);
+    }
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 }
