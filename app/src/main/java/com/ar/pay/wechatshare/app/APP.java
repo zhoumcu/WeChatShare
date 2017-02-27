@@ -10,6 +10,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Created by Mr.Jude on 2015/8/20.
  */
@@ -26,7 +28,8 @@ public class APP extends Application {
         JUtils.initialize(this);
         JUtils.setDebug(true, "JoyLog");
         Beam.init(this);
-        regToWx();
+//        regToWx();
+        ShareSDK.initSDK(this);
     }
 
     public static APP getInstances(){
