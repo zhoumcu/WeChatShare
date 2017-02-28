@@ -37,7 +37,7 @@ public class HomeActivity extends BeamBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Review.MD5Review(this,"com.ar.pay.wechatshare","761a8e3374d49b746beddf9674b9d7e9");
+//        Review.MD5Review(this,"com.ar.pay.wechatshare","761a8e3374d49b746beddf9674b9d7e9");
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new myPagerAdapter(getSupportFragmentManager()));
         tabs.setViewPager(viewPager);

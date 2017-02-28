@@ -33,7 +33,7 @@
         <activity android:name=".module.main.ArticlesDetail"/>
         <activity android:name=".module.other.InfoActivity"/>
         <activity android:name=".module.other.MineArticlesActivity"/>
-        <activity android:name=".module.wxapi.WXEntryActivity"
+        <activity android:name=".wxapi.WXEntryActivity"
             android:exported="true"/>
         <activity
             android:name="com.mob.tools.MobUIShell"

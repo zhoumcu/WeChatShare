@@ -66,6 +66,7 @@
                 android:layout_margin="0dp"/>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/btn_pwd"
                 style="@style/loginTextStyle"
                 android:text="@string/findPwd"

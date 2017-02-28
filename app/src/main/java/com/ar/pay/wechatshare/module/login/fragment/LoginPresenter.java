@@ -3,7 +3,7 @@ package com.ar.pay.wechatshare.module.login.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.ar.pay.wechatshare.entity.User;
+import com.ar.pay.wechatshare.entity.UserBean;
 import com.ar.pay.wechatshare.module.main.fragment.MineFragment;
 import com.ar.pay.wechatshare.server.DaggerServiceModelComponent;
 import com.ar.pay.wechatshare.server.ServiceAPI;
@@ -61,7 +61,7 @@ public class LoginPresenter extends Presenter<LoginActivity> {
         EventBus.getDefault().post(new RegisterActivity());
     }
 
-    Subscriber<User> getLoginSubscriber = new Subscriber<User>() {
+    Subscriber<UserBean> getLoginSubscriber = new Subscriber<UserBean>() {
 
         @Override
         public void onCompleted() {
@@ -72,7 +72,7 @@ public class LoginPresenter extends Presenter<LoginActivity> {
 
         }
         @Override
-        public void onNext(User user) {
+        public void onNext(UserBean user) {
 
         }
     };

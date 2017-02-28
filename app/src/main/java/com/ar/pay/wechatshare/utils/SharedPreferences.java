@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences.Editor;
 
 import com.ar.pay.wechatshare.app.APP;
-import com.ar.pay.wechatshare.entity.User;
+import com.ar.pay.wechatshare.entity.UserBean;
 
 
 public class SharedPreferences {
@@ -143,19 +143,19 @@ public class SharedPreferences {
             e.printStackTrace();
         }
     }
-    public void saveUserInfo(User user) {
-        putString("user_img",user.getImg());
-        putString("user_name",user.getUserName());
-        putString("user_usercode",user.getUserCode());
-        putString("user_phone",user.getPhone());
+    public void saveUserInfo(UserBean user) {
+//        putString("user_img",user.getImg());
+//        putString("user_name",user.getUserName());
+//        putString("user_usercode",user.getUserCode());
+//        putString("user_phone",user.getPhone());
     }
 
-    public User getUserInfo() {
-        User user = new User();
-        user.setImg(getString("user_img",""));
-        user.setUserName(getString("user_name","testDemo"));
-        user.setUserCode(getString("user_usercode",""));
-        user.setPhone(getString("user_phone",""));
+    public UserBean getUserInfo() {
+        UserBean user = new UserBean();
+//        user.setImg(getString("user_img",""));
+//        user.setUserName(getString("user_name","testDemo"));
+//        user.setUserCode(getString("user_usercode",""));
+//        user.setPhone(getString("user_phone",""));
         return user;
     }
 }

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.ar.pay.wechatshare.entity.User;
+import com.ar.pay.wechatshare.entity.UserBean;
 import com.ar.pay.wechatshare.server.SchedulerTransform;
 import com.ar.pay.wechatshare.server.ServiceAPI;
 import com.jude.beam.bijection.Presenter;
@@ -57,7 +57,7 @@ public class LoginPresenter extends Presenter<LoginActivity> {
         this.getView().startActivity(new Intent(this.getView(), RegisterActivity.class));
     }
 
-    Subscriber<User> getLoginSubscriber = new Subscriber<User>() {
+    Subscriber<UserBean> getLoginSubscriber = new Subscriber<UserBean>() {
 
         @Override
         public void onCompleted() {
@@ -68,7 +68,7 @@ public class LoginPresenter extends Presenter<LoginActivity> {
 
         }
         @Override
-        public void onNext(User user) {
+        public void onNext(UserBean user) {
 
         }
     };

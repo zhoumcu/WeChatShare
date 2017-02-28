@@ -3,7 +3,7 @@ package com.ar.pay.wechatshare.module.main.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.ar.pay.wechatshare.entity.User;
+import com.ar.pay.wechatshare.entity.UserBean;
 import com.jude.beam.bijection.Presenter;
 
 /**
@@ -12,7 +12,7 @@ import com.jude.beam.bijection.Presenter;
  * email：1032324589@qq.com
  */
 public class MineFragmentPresenter extends Presenter<MineFragment> {
-    private User user;
+    private UserBean user;
 
     @Override
     protected void onCreate(@NonNull MineFragment view, Bundle savedState) {

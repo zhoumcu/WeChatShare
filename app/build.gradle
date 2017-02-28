@@ -49,6 +49,7 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.4'
     compile 'homhomlin.lib:apsts:1.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:1.0.2'
     compile files('src/main/libs/MobCommons-2017.0216.1054.jar')
     compile files('src/main/libs/MobTools-2017.0216.1054.jar')

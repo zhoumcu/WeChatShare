@@ -53,10 +53,12 @@
             android:text="demo"/>
     </LinearLayout>
     <View
+        android:visibility="gone"
         style="@style/dividev"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"/>
     <LinearLayout
+        android:visibility="gone"
         android:padding="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"

@@ -6,7 +6,7 @@
  * Copyright (c) 2013年 mob.com. All rights reserved.
  */
 
-package com.ar.pay.wechatshare.module.wxapi;
+package com.ar.pay.wechatshare.wxapi;
 
 import android.content.Intent;
 import android.widget.Toast;

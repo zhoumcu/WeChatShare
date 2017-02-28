@@ -1,19 +1,27 @@
 package com.ar.pay.wechatshare.module.main;
 
 import android.support.v7.app.ActionBar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewStub;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.app.APP;
+import com.ar.pay.wechatshare.entity.ContentBean;
 import com.ar.pay.wechatshare.module.base.BeenBaseActivity;
+import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
 import com.ar.pay.wechatshare.widget.ProgressWebView;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
@@ -24,10 +32,14 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 public class ArticlesDetail extends BeenBaseActivity {
     private ProgressWebView webView;
     private String testUrl = "http://mp.weixin.qq.com/s?__biz=MzA5OTcxNDQwNg==&mid=501457379&idx=2&sn=987268b4b884103ac58421b5914b0953&mpshare=1&scene=1&srcid=0222FME9PXJT94mLQUjZhUBK#rd";
+    private String articlesUrl;
+    private ContentBean article;
+
     @Override
     public int onCreateView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        article = (ContentBean) getIntent().getSerializableExtra("DETAIL");
         return R.layout.activity_main_test_2;
     }
 
@@ -36,7 +48,8 @@ public class ArticlesDetail extends BeenBaseActivity {
         viewStub.inflate();
         webView = (ProgressWebView)findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(testUrl);
+        articlesUrl = HttpHelper.BaseURL+"api/page/"+article.getId();
+        webView.loadUrl(articlesUrl);
     }
 
     @Override
@@ -61,6 +74,16 @@ public class ArticlesDetail extends BeenBaseActivity {
         getMenuInflater().inflate(R.menu.share_menu,menu);
         //如果返回false，创建的菜单无法显示
         return true;
+    }
+    @Override
+    // 设置回退
+    // 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack(); // goBack()表示返回WebView的上一页面
+            return true;
+        }
+        return super.onKeyDown(keyCode,event);
     }
     private void sendUrl(){
         WXWebpageObject webpageObject = new WXWebpageObject();
@@ -108,24 +131,43 @@ public class ArticlesDetail extends BeenBaseActivity {
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
-        oks.setTitle("标题");
+        oks.setTitle(article.getTitle());
         // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
-        oks.setTitleUrl("http://sharesdk.cn");
+//        oks.setTitleUrl(articlesUrl);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
+        oks.setText(article.getDescription());
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
-        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        oks.setImageUrl(HttpHelper.BaseURL+article.getMainPic());
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://sharesdk.cn");
+        oks.setUrl(articlesUrl);
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        oks.setComment("我是测试评论文本");
+//        oks.setComment("");
         // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSite("ShareSDK");
+//        oks.setSite("ShareSDK");
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setSiteUrl("http://sharesdk.cn");
+//        oks.setSiteUrl("http://sharesdk.cn");
+        // 设置自定义的外部回调
+        oks.setCallback(new OneKeyShareCallback());
         // 启动分享GUI
         oks.show(this);
+    }
+
+    private class OneKeyShareCallback implements PlatformActionListener {
+        @Override
+        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+            Log.w("ArticlesDetail","sdfsadfsa");
+        }
+
+        @Override
+        public void onError(Platform platform, int i, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(Platform platform, int i) {
+
+        }
     }
 }
