@@ -32,6 +32,7 @@ public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragmen
     private static final String TAG = HomeFragmentPresenter.class.getSimpleName();
     @Inject
     ServiceAPI serviceAPI;
+    public int pos;
 
     @Override
     protected void onCreate(@NonNull HomeFragment view, Bundle savedState) {
@@ -52,8 +53,18 @@ public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragmen
                 extras.putSerializable("DETAIL",(ContentBean)getAdapter().getItem(position));
                 intent.putExtras(extras);
                 getView().startActivity(intent);
+                pos = position;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(getAdapter().getCount()>0){
+            getAdapter().getItem(pos).setHits(getAdapter().getItem(pos).getHits()+1);
+            getAdapter().notifyItemChanged(pos);
+        }
     }
 
     @Override
@@ -68,13 +79,18 @@ public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragmen
         HttpHelper.getInstance().getPackage(10);
     }
     @Subscribe
-    public void onEventMainThread(ArticleBean bean) {
-//        List<ArticleBean> o = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            o.add(new ArticleBean());
-//        }
-        Observable<List<ContentBean>> observable = Observable.just(bean.getContent());
-        observable.compose(new SchedulerTransform<>())
-                .unsafeSubscribe(getRefreshSubscriber());
+    public void onEventMainThread(Object bean) {
+        if(bean instanceof ArticleBean){
+            Observable<List<ContentBean>> observable = Observable.just(((ArticleBean)bean).getContent());
+            observable.compose(new SchedulerTransform<>())
+                    .unsafeSubscribe(getRefreshSubscriber());
+        }else if(bean instanceof Boolean){
+            if((Boolean)bean){
+                if(getAdapter().getCount()>0){
+                    getAdapter().getItem(pos).setShare(getAdapter().getItem(pos).getShare()+1);
+                    getAdapter().notifyItemChanged(pos);
+                }
+            }
+        }
     }
 }

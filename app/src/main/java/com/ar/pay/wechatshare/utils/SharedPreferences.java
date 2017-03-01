@@ -144,18 +144,18 @@ public class SharedPreferences {
         }
     }
     public void saveUserInfo(UserBean user) {
-//        putString("user_img",user.getImg());
-//        putString("user_name",user.getUserName());
-//        putString("user_usercode",user.getUserCode());
-//        putString("user_phone",user.getPhone());
+        putString("user_img",user.getEmail());
+        putString("user_name",user.getUsername());
+        putString("user_usercode",user.getName());
+        putString("user_phone",user.getPhone());
     }
 
     public UserBean getUserInfo() {
         UserBean user = new UserBean();
-//        user.setImg(getString("user_img",""));
-//        user.setUserName(getString("user_name","testDemo"));
-//        user.setUserCode(getString("user_usercode",""));
-//        user.setPhone(getString("user_phone",""));
+        user.setEmail(getString("user_img",""));
+        user.setUsername(getString("user_name","testDemo"));
+        user.setName(getString("user_usercode",""));
+        user.setPhone(getString("user_phone",""));
         return user;
     }
 }

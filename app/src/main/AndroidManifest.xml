@@ -30,9 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.main.ArticlesDetail"/>
+        <activity android:name=".module.main.ArticlesDetail"
+            android:label="文章详情"/>
         <activity android:name=".module.other.InfoActivity"/>
         <activity android:name=".module.other.MineArticlesActivity"/>
+        <activity android:name=".module.login.fragment.Login"
+            android:label="登录"/>
         <activity android:name=".wxapi.WXEntryActivity"
             android:exported="true"/>
         <activity

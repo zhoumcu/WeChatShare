@@ -5,10 +5,11 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-import com.ar.pay.wechatshare.entity.ArticleBean;
+import com.ar.pay.wechatshare.entity.ContentBean;
 import com.ar.pay.wechatshare.module.other.vholder.MineArticleViewHolder;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
+import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
@@ -17,7 +18,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * email：1032324589@qq.com
  */
 @RequiresPresenter(MineArticlePresenter.class)
-public class MineArticlesActivity extends BeamListActivity<MineArticlePresenter,ArticleBean>{
+public class MineArticlesActivity extends BeamListActivity<MineArticlePresenter,ContentBean>{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,15 @@ public class MineArticlesActivity extends BeamListActivity<MineArticlePresenter,
     @Override
     public BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         return new MineArticleViewHolder(parent);
+    }
+    @Override
+    public ListConfig getConfig() {
+        return super.getConfig()
+                .setLoadmoreAble(false)
+                .setRefreshAble(true)
+                .setNoMoreAble(true)
+                .setErrorAble(true)
+                .setErrorTouchToResumeAble(true);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

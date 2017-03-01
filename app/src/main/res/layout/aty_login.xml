@@ -34,7 +34,6 @@
                 android:id="@+id/phone"
                 style="@style/loginEditStyle"
                 android:hint="@string/phone"
-                android:inputType="number"
                 android:layout_toLeftOf="@+id/tv_find"
                 />
 

@@ -55,8 +55,10 @@ public class LoginActivity extends BeenFragment<LoginPresenter> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //测试数据
-        phone.setText("18279562014");
-        tvPwd.setText("123456");
+//        phone.setText("18279562014");
+//        tvPwd.setText("123456");
+        phone.setText("admin1");
+        tvPwd.setText("admin1");
         btnSure.setOnClickListener(view -> getPresenter().login());
         tvFind.setOnClickListener(view -> getPresenter().findCount());
         btnPwd.setOnClickListener(view -> getPresenter().findPwd());

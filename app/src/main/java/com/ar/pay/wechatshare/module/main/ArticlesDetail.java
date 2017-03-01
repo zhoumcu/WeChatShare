@@ -1,5 +1,6 @@
 package com.ar.pay.wechatshare.module.main;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -11,12 +12,17 @@ import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.app.APP;
 import com.ar.pay.wechatshare.entity.ContentBean;
 import com.ar.pay.wechatshare.module.base.BeenBaseActivity;
+import com.ar.pay.wechatshare.module.login.fragment.Login;
 import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
+import com.ar.pay.wechatshare.utils.Constants;
+import com.ar.pay.wechatshare.utils.SharedPreferences;
 import com.ar.pay.wechatshare.widget.ProgressWebView;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -50,6 +56,7 @@ public class ArticlesDetail extends BeenBaseActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         articlesUrl = HttpHelper.BaseURL+"api/page/"+article.getId();
         webView.loadUrl(articlesUrl);
+//        HttpHelper.getInstance().postInfo(article.getId());
     }
 
     @Override
@@ -127,6 +134,10 @@ public class ArticlesDetail extends BeenBaseActivity {
     }
 
     private void showShare() {
+        if(!SharedPreferences.getInstance().getBoolean(Constants.IS_LOGIN,false)){
+            startActivity(new Intent(this, Login.class));
+            return;
+        }
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -158,6 +169,8 @@ public class ArticlesDetail extends BeenBaseActivity {
         @Override
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
             Log.w("ArticlesDetail","sdfsadfsa");
+            EventBus.getDefault().post(true);
+            HttpHelper.getInstance().postShare(article.getId());
         }
 
         @Override

@@ -47,15 +47,15 @@ public class RestInterceptors implements Interceptor {
             while (iterator.hasNext()){
                 String key = iterator.next();
                 switch (key){
-                    case "status":
-                        code = wrapper.getJSONObject(key).getInt("status");
-                        if (code == 0)code=200;
+                    case "code":
+                        code = wrapper.getInt(key);
+                        if (code==0)code=200;
                         else {
                             code=400;
-                            errorMessage = wrapper.getJSONObject(key).getString("msg");
+                            errorMessage = wrapper.getString("msg");
                         }
                         break;
-                    case "showapi_res_error":
+                    case "msg":
                         errorMessage = wrapper.getString(key);
                         break;
                     default:

@@ -15,8 +15,8 @@ public class UserBean implements Serializable{
     private String username;
     private String password;
     private String name;
-    private Object email;
-    private Object phone;
+    private String email;
+    private String phone;
     private String userType;
     private String state;
 
@@ -68,19 +68,19 @@ public class UserBean implements Serializable{
         this.name = name;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Object phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
