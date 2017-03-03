@@ -19,14 +19,16 @@
             <TextView
                 android:id="@+id/title"
                 android:textSize="@dimen/sp15"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:text="一招让你告白鼻炎困扰！（赶紧收藏）"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:layout_marginTop="@dimen/dp8"
                 android:id="@+id/describer"
-                android:maxLines="2"
+                android:maxLines="3"
+                android:textSize="@dimen/dp12"
                 android:ellipsize="end"
                 android:text="一招让你告白鼻炎困扰！（赶紧收藏）"
                 android:textColor="@color/gray"

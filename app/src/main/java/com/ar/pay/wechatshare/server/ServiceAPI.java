@@ -11,7 +11,7 @@ import rx.Observable;
 
 public interface ServiceAPI {
 
-    String BASEURL = "http://dahome.applinzi.com/";
+    String BASEURL = "http://139.162.126.145:5050/";
 //    String BASEURL = "http://apis.baidu.com/showapi_open_bus/";
 
     @POST("api/user/login")

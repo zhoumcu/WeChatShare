@@ -27,16 +27,16 @@ import rx.Observable;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class MineArticlePresenter extends BeamListActivityPresenter<MineArticlesActivity,ContentBean>{
+public class MineSharePresenter extends BeamListActivityPresenter<MineShareActivity,ContentBean>{
 
     @Override
-    protected void onCreate(@NonNull MineArticlesActivity view, Bundle savedState) {
+    protected void onCreate(@NonNull MineShareActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
         EventBus.getDefault().register(this);
         onRefresh();
     }
     @Override
-    protected void onCreateView(@NonNull MineArticlesActivity view) {
+    protected void onCreateView(@NonNull MineShareActivity view) {
         super.onCreateView(view);
         getAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override

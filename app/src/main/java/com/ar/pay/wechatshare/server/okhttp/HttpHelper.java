@@ -21,7 +21,7 @@ import okhttp3.Response;
  * email：1032324589@qq.com
  */
 public class HttpHelper {
-    public static String BaseURL = "http://dahome.applinzi.com/";
+    public static String BaseURL = "http://139.162.126.145:5050/";
 
     private static HttpHelper ourInstance = new HttpHelper();
 

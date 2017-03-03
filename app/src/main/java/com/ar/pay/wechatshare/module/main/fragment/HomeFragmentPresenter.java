@@ -33,6 +33,8 @@ public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragmen
     @Inject
     ServiceAPI serviceAPI;
     public int pos;
+    private int size = 10;
+    private int totalPages = 0;
 
     @Override
     protected void onCreate(@NonNull HomeFragment view, Bundle savedState) {
@@ -76,12 +78,22 @@ public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragmen
     @Override
     public void onRefresh() {
         super.onRefresh();
-        HttpHelper.getInstance().getPackage(10);
+        HttpHelper.getInstance().getPackage(size);
     }
+
+//    @Override
+//    public void onLoadMore() {
+//        super.onLoadMore();
+//        size = size*totalPages;
+//        HttpHelper.getInstance().getPackage(size);
+//    }
+
     @Subscribe
     public void onEventMainThread(Object bean) {
         if(bean instanceof ArticleBean){
-            Observable<List<ContentBean>> observable = Observable.just(((ArticleBean)bean).getContent());
+            ArticleBean articleBean = (ArticleBean)bean;
+            totalPages = articleBean.getTotalPages();
+            Observable<List<ContentBean>> observable = Observable.just((articleBean).getContent());
             observable.compose(new SchedulerTransform<>())
                     .unsafeSubscribe(getRefreshSubscriber());
         }else if(bean instanceof Boolean){
