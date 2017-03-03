@@ -1,22 +1,18 @@
 package com.ar.pay.wechatshare.module.other;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.ar.pay.wechatshare.entity.ShareBean;
 import com.ar.pay.wechatshare.entity.UserBean;
-import com.ar.pay.wechatshare.module.main.ArticlesDetail;
 import com.ar.pay.wechatshare.server.SchedulerTransform;
 import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
 import com.ar.pay.wechatshare.utils.SharedPreferences;
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.Serializable;
 import java.util.List;
 
 import rx.Observable;
@@ -40,16 +36,16 @@ public class MineSharePresenter extends BeamListActivityPresenter<MineShareActiv
     @Override
     protected void onCreateView(@NonNull MineShareActivity view) {
         super.onCreateView(view);
-        getAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(getView(),ArticlesDetail.class);
-                Bundle extras = new Bundle();
-                extras.putSerializable("DETAIL", (Serializable) getAdapter().getItem(position));
-                intent.putExtras(extras);
-                getView().startActivity(intent);
-            }
-        });
+//        getAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(getView(),ArticlesDetail.class);
+//                Bundle extras = new Bundle();
+//                extras.putSerializable("DETAIL", (Serializable) getAdapter().getItem(position));
+//                intent.putExtras(extras);
+//                getView().startActivity(intent);
+//            }
+//        });
     }
     @Override
     protected void onDestroy() {
