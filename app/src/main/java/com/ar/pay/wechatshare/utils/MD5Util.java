@@ -6,6 +6,7 @@ package com.ar.pay.wechatshare.utils;
  * email：1032324589@qq.com
  */
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -16,37 +17,29 @@ import java.security.NoSuchAlgorithmException;
  *
  */
 public class MD5Util {
-    /**
-     *
-     * @param psdMD5要加密的对象
-     * @returnMD5加密后市返回一个32位数的字符串，返回“”，代表加密异常
-     */
-    public static String md5Code(String psd) {
+    public static String getMD5(String info) {
         try {
-// 加盐
-            psd = psd + "abc";
-// 1，获取加密算法对象，单利设计模式
-            MessageDigest instance = MessageDigest.getInstance("MD5");
-// 2，通过加密算法操作，对psd进行哈希加密操作
-            byte[] digest = instance.digest(psd.getBytes());
-            StringBuffer sb = new StringBuffer();
-// 循环16次
-            for (byte b : digest) {
-// 获取b的后8位
-                int i = b & 0xff;
-// 将10进制数，转化为16进制
-                String hexString = Integer.toHexString(i);
-// 容错处理，长度小于2的，自动补0
-                if (hexString.length() < 2) {
-                    hexString = "0" + hexString;
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.update(info.getBytes("UTF-8"));
+            byte[] encryption = md5.digest();
+
+            StringBuffer strBuf = new StringBuffer();
+            for (int i = 0; i < encryption.length; i++) {
+                if (Integer.toHexString(0xff & encryption[i]).length() == 1) {
+                    strBuf.append("0").append(Integer.toHexString(0xff & encryption[i]));
                 }
-// 把生成的32位字符串添加到stringBuffer中
-                sb.append(hexString);
+                else {
+                    strBuf.append(Integer.toHexString(0xff & encryption[i]));
+                }
             }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+
+            return strBuf.toString();
         }
-        return "";
+        catch (NoSuchAlgorithmException e) {
+            return "";
+        }
+        catch (UnsupportedEncodingException e) {
+            return "";
+        }
     }
 }

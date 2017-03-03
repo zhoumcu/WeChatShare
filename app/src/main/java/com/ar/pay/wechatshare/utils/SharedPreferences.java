@@ -144,6 +144,7 @@ public class SharedPreferences {
         }
     }
     public void saveUserInfo(UserBean user) {
+        putInt("user_id",user.getId());
         putString("user_img",user.getEmail());
         putString("user_name",user.getUsername());
         putString("user_usercode",user.getName());
@@ -156,6 +157,7 @@ public class SharedPreferences {
         user.setUsername(getString("user_name","testDemo"));
         user.setName(getString("user_usercode",""));
         user.setPhone(getString("user_phone",""));
+        user.setId(getInt("user_id",0));
         return user;
     }
 }

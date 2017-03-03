@@ -3,6 +3,7 @@ package com.ar.pay.wechatshare.server.okhttp;
 import android.util.Log;
 
 import com.ar.pay.wechatshare.entity.ArticleBean;
+import com.ar.pay.wechatshare.entity.ShareBean;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,9 +54,36 @@ public class HttpHelper {
             }
         });
     }
-    public void postShare(int id) {
+    public void getMyShare(int pazeSize,int userId) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder().url(BaseURL+"api/resource/share/"+id).build();
+        String url = BaseURL+"api/resource/user/share/"+userId+"/"+pazeSize;
+        Log.d("GetApkPackage", url);
+        final Request request = new Request.Builder().url(url).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("获取apk列表失败");
+                Log.d("GetApkPackage", e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    StringBuffer stringBuffer = new StringBuffer();
+                    String result = response.body().string();
+                    System.out.println(result);
+                    stringBuffer.append("{data:");
+                    stringBuffer.append(result);
+                    stringBuffer.append("}");
+                    Gson gson = new Gson();
+                    ShareBean packlist = gson.fromJson(stringBuffer.toString(),ShareBean.class);
+                    EventBus.getDefault().post(packlist);
+                }
+            }
+        });
+    }
+    public void postShare(int id,int userId) {
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(BaseURL+"api/resource/share/"+id+"/"+userId).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -60,8 +60,8 @@ public class RegisterActivityPresenter extends Presenter<RegisterActivity> {
             getView().edRepwd.setError("两次密码输入不对应");
             return;
         }
-        if (getView().edPwd.length() < 6 || getView().edPwd.length() > 12) {
-            getView().edPwd.setError("密码应为6-12位");
+        if (getView().edPwd.length() < 5 || getView().edPwd.length() > 12) {
+            getView().edPwd.setError("密码应为5-12位");
             return;
         }
 //        if(!TextUtils.isEmpty(edPhone)){
@@ -75,7 +75,7 @@ public class RegisterActivityPresenter extends Presenter<RegisterActivity> {
 //            JUtils.Toast("验证码不对，请重新输入");
 //            return;
 //        }
-        serviceAPI.register(getView().edAccount.getText().toString(), MD5Util.md5Code(getView().edPwd.getText().toString()))
+        serviceAPI.register(getView().edAccount.getText().toString(), MD5Util.getMD5(getView().edPwd.getText().toString()))
                 .compose(new SchedulerTransform<>())
                 .unsafeSubscribe(getRegisterSubscriber);
     }

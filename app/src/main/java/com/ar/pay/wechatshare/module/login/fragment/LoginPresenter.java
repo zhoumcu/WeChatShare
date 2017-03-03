@@ -62,10 +62,10 @@ public class LoginPresenter extends Presenter<LoginActivity> {
             return;
         }
         if (mPassword.length() < 4 || mPassword.length() > 12) {
-            getView().tvPwd.setError("密码应为6-12位");
+            getView().tvPwd.setError("密码应为5-12位");
             return;
         }
-        serviceAPI.login(phone, MD5Util.md5Code(mPassword))
+        serviceAPI.login(phone, MD5Util.getMD5(mPassword))
                 .compose(new SchedulerTransform<>())
                 .unsafeSubscribe(getLoginSubscriber);
 

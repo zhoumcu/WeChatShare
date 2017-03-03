@@ -170,7 +170,7 @@ public class ArticlesDetail extends BeenBaseActivity {
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
             Log.w("ArticlesDetail","sdfsadfsa");
             EventBus.getDefault().post(true);
-            HttpHelper.getInstance().postShare(article.getId());
+            HttpHelper.getInstance().postShare(article.getId(),article.getId());
         }
 
         @Override
