@@ -83,7 +83,9 @@ public class HttpHelper {
     }
     public void postShare(int id,int userId) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder().url(BaseURL+"api/resource/share/"+id+"/"+userId).build();
+        String url = BaseURL+"api/resource/share/"+id+"/"+userId;
+        final Request request = new Request.Builder().url(url).build();
+        Log.d("GetApkPackage", url);
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

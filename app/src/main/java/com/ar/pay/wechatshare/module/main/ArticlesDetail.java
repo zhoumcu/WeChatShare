@@ -11,6 +11,7 @@ import android.view.ViewStub;
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.app.APP;
 import com.ar.pay.wechatshare.entity.ContentBean;
+import com.ar.pay.wechatshare.entity.UserBean;
 import com.ar.pay.wechatshare.module.base.BeenBaseActivity;
 import com.ar.pay.wechatshare.module.login.fragment.Login;
 import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
@@ -40,12 +41,13 @@ public class ArticlesDetail extends BeenBaseActivity {
     private String testUrl = "http://mp.weixin.qq.com/s?__biz=MzA5OTcxNDQwNg==&mid=501457379&idx=2&sn=987268b4b884103ac58421b5914b0953&mpshare=1&scene=1&srcid=0222FME9PXJT94mLQUjZhUBK#rd";
     private String articlesUrl;
     private ContentBean article;
-
+    private UserBean userBean;
     @Override
     public int onCreateView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         article = (ContentBean) getIntent().getSerializableExtra("DETAIL");
+        userBean = SharedPreferences.getInstance().getUserInfo();
         return R.layout.activity_main_test_2;
     }
 
@@ -170,7 +172,7 @@ public class ArticlesDetail extends BeenBaseActivity {
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
             Log.w("ArticlesDetail","sdfsadfsa");
             EventBus.getDefault().post(true);
-            HttpHelper.getInstance().postShare(article.getId(),article.getId());
+            HttpHelper.getInstance().postShare(article.getId(),userBean.getId());
         }
 
         @Override
