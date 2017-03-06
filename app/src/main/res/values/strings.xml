@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">WeChatShare</string>
+    <string name="app_name">麦煌传媒</string>
 
     <string name="passWord">密码</string>
-    <string name="phone">手机号</string>
+    <string name="phone">帐号/手机号</string>
     <string name="findAccount">找回帐号</string>
     <string name="findPwd">忘记密码</string>
     <string name="loginBtn">登录</string>

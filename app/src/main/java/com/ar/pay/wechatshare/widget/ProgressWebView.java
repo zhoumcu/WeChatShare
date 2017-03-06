@@ -10,6 +10,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.ar.pay.wechatshare.R;
@@ -35,6 +36,12 @@ public class ProgressWebView extends WebView {
         addView(progressbar);
         // setWebViewClient(new WebViewClient(){});
         setWebChromeClient(new WebChromeClient());
+        setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) { //  重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
+                view.loadUrl(url);
+                return true;
+            }
+        });
         //是否可以缩放
         getSettings().setSupportZoom(true);
         getSettings().setBuiltInZoomControls(true);

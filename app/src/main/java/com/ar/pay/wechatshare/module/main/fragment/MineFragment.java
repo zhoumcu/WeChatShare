@@ -12,6 +12,7 @@ import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.module.base.BeenFragment;
 import com.ar.pay.wechatshare.module.other.InfoActivity;
 import com.ar.pay.wechatshare.module.other.MineArticlesActivity;
+import com.ar.pay.wechatshare.module.other.MineShareActivity;
 import com.ar.pay.wechatshare.widget.CustomTitleBar;
 import com.jude.beam.bijection.RequiresPresenter;
 
@@ -48,7 +49,7 @@ public class MineFragment extends BeenFragment<MineFragmentPresenter> {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @OnClick({R.id.btn_info, R.id.btn_minearticle})
+    @OnClick({R.id.btn_info, R.id.btn_minearticle,R.id.btn_mineashare})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_info:
@@ -56,6 +57,9 @@ public class MineFragment extends BeenFragment<MineFragmentPresenter> {
                 break;
             case R.id.btn_minearticle:
                 startActivity(new Intent(getContext(),MineArticlesActivity.class));
+                break;
+            case R.id.btn_mineashare:
+                startActivity(new Intent(getContext(),MineShareActivity.class));
                 break;
         }
     }

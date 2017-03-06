@@ -18,7 +18,7 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginLeft">18dip</item>
         <item name="android:layout_marginRight">18dip</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/select_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginTop">@dimen/margin40dp</item>

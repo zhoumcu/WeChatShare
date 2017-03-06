@@ -34,7 +34,6 @@
                 android:id="@+id/phone"
                 style="@style/loginEditStyle"
                 android:hint="@string/phone"
-                android:inputType="number"
                 android:layout_toLeftOf="@+id/tv_find"
                 />
 
@@ -66,6 +65,7 @@
                 android:layout_margin="0dp"/>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/btn_pwd"
                 style="@style/loginTextStyle"
                 android:text="@string/findPwd"

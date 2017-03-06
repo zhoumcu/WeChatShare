@@ -1,11 +1,18 @@
 package com.ar.pay.wechatshare.module.main.vholder;
 
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ar.pay.wechatshare.R;
-import com.ar.pay.wechatshare.entity.ArticleBean;
+import com.ar.pay.wechatshare.app.APP;
+import com.ar.pay.wechatshare.entity.ContentBean;
+import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
+import com.ar.pay.wechatshare.utils.Constants;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -13,16 +20,38 @@ import butterknife.ButterKnife;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class ArticleViewHolder extends BaseViewHolder<ArticleBean> {
+public class ArticleViewHolder extends BaseViewHolder<ContentBean> {
 
+
+    private ArticleViewHolder context;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.img_icon)
+    ImageView imgIcon;
+    @BindView(R.id.tv_read)
+    TextView tvRead;
+    @BindView(R.id.tv_share)
+    TextView tvShare;
+    @BindView(R.id.describer)
+    TextView describer;
 
     public ArticleViewHolder(ViewGroup parent) {
         super(parent, R.layout.item_article);
-        ButterKnife.bind(this,itemView);
+        context = this;
+        ButterKnife.bind(this, itemView);
     }
 
     @Override
-    public void setData(ArticleBean data) {
+    public void setData(ContentBean data) {
         super.setData(data);
+        Picasso.with(APP.getInstances().getApplicationContext())
+                .load(HttpHelper.BaseURL+data.getMainPic())
+                .resize(130,80)
+                .centerCrop()
+                .into(imgIcon);
+        title.setText(data.getTitle());
+        tvRead.setText(Constants.setTextColor("阅读：" + data.getHits()));
+        tvShare.setText(Constants.setTextColor("分享：" + data.getShare()));
+        describer.setText(data.getDescription());
     }
 }

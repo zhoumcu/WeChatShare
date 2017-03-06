@@ -44,17 +44,17 @@ public class CommonFragment extends BeamFragment  {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-       if(SharedPreferences.getInstance().getBoolean(Constants.IS_LOGIN,false)){
-            fragment = new MineFragment();
-        }else{
-            fragment = new LoginActivity();
-        }
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if(SharedPreferences.getInstance().getBoolean(Constants.IS_LOGIN,false)){
+            fragment = new MineFragment();
+        }else{
+            fragment = new LoginActivity();
+        }
+        onChangeFragment(fragment);
     }
 
     @Override

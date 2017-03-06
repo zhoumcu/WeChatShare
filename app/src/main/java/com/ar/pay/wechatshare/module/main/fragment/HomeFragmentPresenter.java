@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.ar.pay.wechatshare.entity.ArticleBean;
+import com.ar.pay.wechatshare.entity.ContentBean;
 import com.ar.pay.wechatshare.module.main.ArticlesDetail;
 import com.ar.pay.wechatshare.server.DaggerServiceModelComponent;
 import com.ar.pay.wechatshare.server.SchedulerTransform;
 import com.ar.pay.wechatshare.server.ServiceAPI;
+import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
 import com.jude.beam.expansion.list.BeamListFragmentPresenter;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,15 +28,19 @@ import rx.Observable;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragment,ArticleBean> {
+public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragment,ContentBean> {
     private static final String TAG = HomeFragmentPresenter.class.getSimpleName();
     @Inject
     ServiceAPI serviceAPI;
+    public int pos;
+    private int size = 10;
+    private int totalPages = 0;
 
     @Override
     protected void onCreate(@NonNull HomeFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
         DaggerServiceModelComponent.builder().build().inject(this);
+        EventBus.getDefault().register(this);
         onRefresh();
     }
 
@@ -42,25 +50,59 @@ public class HomeFragmentPresenter extends BeamListFragmentPresenter<HomeFragmen
         getAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getView().startActivity(new Intent(getView().getActivity(),ArticlesDetail.class));
+                Intent intent = new Intent(getView().getActivity(),ArticlesDetail.class);
+                Bundle extras = new Bundle();
+                extras.putSerializable("DETAIL",(ContentBean)getAdapter().getItem(position));
+                intent.putExtras(extras);
+                getView().startActivity(intent);
+                pos = position;
             }
         });
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(getAdapter().getCount()>0){
+            getAdapter().getItem(pos).setHits(getAdapter().getItem(pos).getHits()+1);
+            getAdapter().notifyItemChanged(pos);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onRefresh() {
         super.onRefresh();
-         List<ArticleBean> o = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            o.add(new ArticleBean());
+        HttpHelper.getInstance().getPackage(size);
+    }
+
+//    @Override
+//    public void onLoadMore() {
+//        super.onLoadMore();
+//        size = size*totalPages;
+//        HttpHelper.getInstance().getPackage(size);
+//    }
+
+    @Subscribe
+    public void onEventMainThread(Object bean) {
+        if(bean instanceof ArticleBean){
+            ArticleBean articleBean = (ArticleBean)bean;
+            totalPages = articleBean.getTotalPages();
+            Observable<List<ContentBean>> observable = Observable.just((articleBean).getContent());
+            observable.compose(new SchedulerTransform<>())
+                    .unsafeSubscribe(getRefreshSubscriber());
+        }else if(bean instanceof Boolean){
+            if((Boolean)bean){
+                if(getAdapter().getCount()>0){
+                    getAdapter().getItem(pos).setShare(getAdapter().getItem(pos).getShare()+1);
+                    getAdapter().notifyItemChanged(pos);
+                }
+            }
         }
-        Observable<List<ArticleBean>> observable = Observable.just(o);
-        observable.compose(new SchedulerTransform<>())
-                .unsafeSubscribe(getRefreshSubscriber());
     }
 }

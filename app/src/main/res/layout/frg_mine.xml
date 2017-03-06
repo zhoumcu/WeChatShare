@@ -34,4 +34,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_minearticle" />
+    <TextView
+        android:text="我的分享"
+        android:layout_marginTop="@dimen/dp8"
+        android:padding="@dimen/sp15"
+        android:textColor="@color/black"
+        android:background="@color/graye"
+        android:drawableRight="@mipmap/box_arrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_mineashare" />
 </LinearLayout>
