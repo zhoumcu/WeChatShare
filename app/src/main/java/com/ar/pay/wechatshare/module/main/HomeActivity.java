@@ -1,98 +1,100 @@
 package com.ar.pay.wechatshare.module.main;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.module.main.fragment.CommonFragment;
 import com.ar.pay.wechatshare.module.main.fragment.HomeFragment;
-import com.ar.pay.wechatshare.widget.NoScrollViewPager;
-import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.utils.JUtils;
-import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
-import com.review.signature.Review;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * author：Administrator on 2016/12/8 11:36
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class HomeActivity extends BeamBaseActivity {
+public class HomeActivity extends AppCompatActivity {
 
-    @BindView(R.id.viewPager)
-    NoScrollViewPager viewPager;
-    @BindView(R.id.tabs)
-    AdvancedPagerSlidingTabStrip tabs;
+    @BindView(R.id.id_content)
+    FrameLayout id_content;
+    @BindView(R.id.btn_home)
+    RadioButton btnHome;
+    @BindView(R.id.btn_mine)
+    RadioButton btnMine;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
     private long mExitTime;
+    private Fragment mHomeFragment;
+    private Fragment mCommonFragment;
+    private Fragment mContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+//        switchContent(new HomeFragment());
+        showFragment(0);
 //        Review.MD5Review(this,"com.ar.pay.wechatshare","761a8e3374d49b746beddf9674b9d7e9");
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(new myPagerAdapter(getSupportFragmentManager()));
-        tabs.setViewPager(viewPager);
     }
 
-    private class myPagerAdapter extends FragmentStatePagerAdapter implements AdvancedPagerSlidingTabStrip.IconTabProvider {
-        String[] title = {"分享赚钱", "用户中心"};
-        int[] iconNo = {R.mipmap.ico_home, R.mipmap.ico_user};
-        int[] iconSelt = {R.mipmap.ico_home_c, R.mipmap.ico_user_c};
-        HomeFragment mHomeFragment;
-        Fragment mMineFragment;
-
-        public myPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    mHomeFragment = new HomeFragment();
-                    return mHomeFragment;
-                case 1:
-                    mMineFragment = new CommonFragment();
-                    return mMineFragment;
-                default:
-                    return null;
+    public void switchContent(Fragment from, Fragment to) {
+        if (mContent != to) {
+            mContent = to;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                    android.R.anim.fade_in, android.R.anim.fade_out);
+            if (!to.isAdded()) {    // 先判断是否被add过
+                transaction.hide(from).add(R.id.id_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+            } else {
+                transaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
             }
         }
-
-        @Override
-        public int getCount() {
-            return title.length;
+    }
+    public void showFragment(int index) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        // 想要显示一个fragment,先隐藏所有fragment，防止重叠
+        hideFragments(ft);
+        switch (index) {
+            case 0:
+                if (mHomeFragment != null)
+                    ft.show(mHomeFragment);
+                else {
+                    mHomeFragment = new HomeFragment();
+                    ft.add(R.id.id_content, mHomeFragment);
+                }
+                ft.commit();
+                break;
+            case 1:
+                if (mCommonFragment != null)
+                    ft.show(mCommonFragment);
+                else {
+                    mCommonFragment = new CommonFragment();
+                    ft.add(R.id.id_content, mCommonFragment);
+                }
+                ft.commit();
+                break;
         }
+    }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return title[position];
-        }
-
-        @Override
-        public Integer getPageIcon(int position) {
-            return iconNo[position];
-        }
-
-        @Override
-        public Integer getPageSelectIcon(int position) {
-            return iconSelt[position];
-        }
-
-        @Override
-        public Rect getPageIconBounds(int position) {
-            return null;
-        }
-
+    // 当fragment已被实例化，就隐藏起来
+    public void hideFragments(FragmentTransaction ft) {
+        if (mCommonFragment != null)
+            ft.hide(mCommonFragment);
+        if (mHomeFragment != null)
+            ft.hide(mHomeFragment);
     }
 
     @Override
@@ -109,4 +111,15 @@ public class HomeActivity extends BeamBaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @OnClick({R.id.btn_home, R.id.btn_mine})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_home:
+                showFragment(0);
+                break;
+            case R.id.btn_mine:
+                showFragment(1);
+                break;
+        }
+    }
 }

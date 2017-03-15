@@ -1,9 +1,12 @@
 package com.ar.pay.wechatshare.app;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.jude.beam.Beam;
 import com.jude.utils.JUtils;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -29,6 +32,7 @@ public class APP extends Application {
         JUtils.setDebug(true, "JoyLog");
         Beam.init(this);
 //        regToWx();
+        PgyCrashManager.register(this);
         ShareSDK.initSDK(this);
     }
 
@@ -42,5 +46,19 @@ public class APP extends Application {
     private void addActivity(Class<?> c){
         List<Class> list = new ArrayList<>();
         list.add(c);
+    }
+    public  String getVersionName() {
+        // 获取packagemanager的实例
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = null;
+        try {
+            packInfo = packageManager.getPackageInfo(getPackageName(),0);
+            String version = packInfo.versionName;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

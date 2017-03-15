@@ -9,23 +9,108 @@
         app:show_left_button="false"
         app:show_right_button="false"
         app:title_text="我的"
-        app:title_background="@color/colorPrimary"
+        app:title_background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <TextView
+            android:text="个人信息"
+            android:padding="@dimen/dp8"
+            android:drawableRight="@mipmap/box_arrow"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp12"
+            android:background="@drawable/info_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_info"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/img_logo"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/logo"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_margin="1dp"
+        android:id="@+id/btn_minearticle"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@color/graye"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp">
+
+            <TextView
+                android:text="10"
+                android:padding="@dimen/sp15"
+                android:textSize="@dimen/sp30"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_articlecount"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:text="我的文章"
+                android:padding="@dimen/sp15"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_margin="1dp"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:id="@+id/btn_mineashare"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:background="@color/graye"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp">
+
+            <TextView
+                android:text="10"
+                android:padding="@dimen/sp15"
+                android:textSize="@dimen/sp30"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_sharecount"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:text="我的分享"
+                android:padding="@dimen/sp15"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:text="个人信息"
-        android:layout_marginTop="@dimen/dp8"
-        android:padding="@dimen/sp15"
-        android:drawableRight="@mipmap/box_arrow"
-        android:textColor="@color/black"
-        android:background="@color/graye"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_info" />
-
-    <TextView
-        android:text="我的文章"
+        android:text="版本更新"
         android:layout_marginTop="@dimen/dp8"
         android:padding="@dimen/sp15"
         android:textColor="@color/black"
@@ -33,15 +118,5 @@
         android:drawableRight="@mipmap/box_arrow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_minearticle" />
-    <TextView
-        android:text="我的分享"
-        android:layout_marginTop="@dimen/dp8"
-        android:padding="@dimen/sp15"
-        android:textColor="@color/black"
-        android:background="@color/graye"
-        android:drawableRight="@mipmap/box_arrow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_mineashare" />
+        android:id="@+id/btn_update" />
 </LinearLayout>

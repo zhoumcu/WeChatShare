@@ -4,6 +4,7 @@ import com.ar.pay.wechatshare.module.login.fragment.FindAccountPresenter;
 import com.ar.pay.wechatshare.module.login.fragment.FindPwdPresenter;
 import com.ar.pay.wechatshare.module.login.fragment.LoginPresenter;
 import com.ar.pay.wechatshare.module.login.fragment.RegisterActivityPresenter;
+import com.ar.pay.wechatshare.module.main.fragment.Home1FragmentPresenter;
 import com.ar.pay.wechatshare.module.main.fragment.HomeFragmentPresenter;
 
 import javax.inject.Singleton;
@@ -27,4 +28,5 @@ public interface ServiceModelComponent {
 
     void inject(FindAccountPresenter findAccountPresenter);
 
+    void inject(Home1FragmentPresenter home1FragmentPresenter);
 }

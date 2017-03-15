@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app = "http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.ar.pay.wechatshare.widget.CustomTitleBar
         android:id="@+id/titleBar"
-        app:title_text="分享赚钱"
         app:show_left_button="false"
         app:show_right_button="false"
+        app:title_text="分享赚钱"
         app:title_background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <com.jude.easyrecyclerview.EasyRecyclerView
-        android:id="@+id/recycler"
-        android:layout_weight="1"
+    <com.lhh.apst.library.AdvancedPagerSlidingTabStrip
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="55dp"
+        style="@style/pagertab_icon_style"
+        android:fillViewport="false"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
 </LinearLayout>

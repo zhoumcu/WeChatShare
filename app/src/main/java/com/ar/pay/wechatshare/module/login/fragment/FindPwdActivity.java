@@ -55,8 +55,18 @@ public class FindPwdActivity extends BeenFragment<FindPwdPresenter> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnSendcode.setOnClickListener(view -> getPresenter().sendCode());
-        btnSummit.setOnClickListener(view -> getPresenter().findPwd());
+        btnSendcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().sendCode();
+            }
+        });
+        btnSummit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().findPwd();
+            }
+        });
         titleBar.setOnTitleClickListener(new CustomTitleBar.TitleOnClickListener() {
             @Override
             public void onLeftClick() {

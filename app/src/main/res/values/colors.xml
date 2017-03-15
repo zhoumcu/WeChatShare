@@ -26,4 +26,6 @@
     <color name="gray6">#666666</color>
     <color name="graye">#eeeeee</color>
     <color name="grayd">#d6d6d6</color>
+
+    <color name="background">#669966</color>
 </resources>

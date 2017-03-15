@@ -59,10 +59,30 @@ public class LoginActivity extends BeenFragment<LoginPresenter> {
 //        tvPwd.setText("123456");
 //        phone.setText("admin1");
 //        tvPwd.setText("admin1");
-        btnSure.setOnClickListener(view -> getPresenter().login());
-        tvFind.setOnClickListener(view -> getPresenter().findCount());
-        btnPwd.setOnClickListener(view -> getPresenter().findPwd());
-        btnRegister.setOnClickListener(view -> getPresenter().register());
+        btnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().login();
+            }
+        });
+        tvFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().findCount();
+            }
+        });
+        btnPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().findPwd();
+            }
+        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().register();
+            }
+        });
     }
 
     @Nullable

@@ -54,8 +54,18 @@ public class RegisterActivity extends BeenFragment<RegisterActivityPresenter> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnSendcode.setOnClickListener(view -> getPresenter().sendCode());
-        btnRegister.setOnClickListener(view -> getPresenter().register());
+        btnSendcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().sendCode();
+            }
+        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().register();
+            }
+        });
         titleBar.setOnTitleClickListener(new CustomTitleBar.TitleOnClickListener() {
             @Override
             public void onLeftClick() {

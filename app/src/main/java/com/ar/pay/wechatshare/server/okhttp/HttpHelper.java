@@ -25,11 +25,17 @@ public class HttpHelper {
     public static String BaseURL = "http://139.162.126.145:5050/";
 
     private static HttpHelper ourInstance = new HttpHelper();
+    private ResultCode resultCode;
 
+    public static HttpHelper getInstance(ResultCode resultCode) {
+        return new HttpHelper(resultCode);
+    }
     public static HttpHelper getInstance() {
         return ourInstance;
     }
-
+    private HttpHelper(ResultCode resultCode) {
+        this.resultCode = resultCode;
+    }
     private HttpHelper() {
 
     }
@@ -41,6 +47,8 @@ public class HttpHelper {
             public void onFailure(Call call, IOException e) {
                 System.out.println("获取apk列表失败");
                 Log.d("GetApkPackage", e.getMessage());
+                if(resultCode!=null)
+                    resultCode.onErro();
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -49,7 +57,9 @@ public class HttpHelper {
                     System.out.println(result);
                     Gson gson = new Gson();
                     ArticleBean packlist = gson.fromJson(result,ArticleBean.class);
-                    EventBus.getDefault().post(packlist);
+//                    EventBus.getDefault().post(packlist);
+                    if(resultCode!=null)
+                        resultCode.onSucess(packlist);
                 }
             }
         });
