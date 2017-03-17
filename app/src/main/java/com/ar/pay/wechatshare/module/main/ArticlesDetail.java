@@ -17,11 +17,11 @@ import com.ar.pay.wechatshare.module.login.fragment.Login;
 import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
 import com.ar.pay.wechatshare.utils.Constants;
 import com.ar.pay.wechatshare.utils.SharedPreferences;
-import com.ar.pay.wechatshare.widget.ProgressWebView;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.smtt.sdk.WebView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,7 +37,8 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * email：1032324589@qq.com
  */
 public class ArticlesDetail extends BeenBaseActivity {
-    private ProgressWebView webView;
+    public static final String MY_TAG = "ArticlesDetail";
+    private WebView webView;
     private String testUrl = "http://mp.weixin.qq.com/s?__biz=MzA5OTcxNDQwNg==&mid=501457379&idx=2&sn=987268b4b884103ac58421b5914b0953&mpshare=1&scene=1&srcid=0222FME9PXJT94mLQUjZhUBK#rd";
     private String articlesUrl;
     private ContentBean article;
@@ -51,13 +52,15 @@ public class ArticlesDetail extends BeenBaseActivity {
         return R.layout.activity_main_test_2;
     }
 
+
     @Override
     public void onDelayCreate(ViewStub viewStub) {
         viewStub.inflate();
-        webView = (ProgressWebView)findViewById(R.id.webView);
+        webView = (WebView)findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         articlesUrl = HttpHelper.BaseURL+"api/page/"+article.getId();
         webView.loadUrl(articlesUrl);
+        Log.e(MY_TAG,articlesUrl);
 //        HttpHelper.getInstance().postInfo(article.getId());
     }
 

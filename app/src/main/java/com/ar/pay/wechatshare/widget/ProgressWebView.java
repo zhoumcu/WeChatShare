@@ -45,6 +45,10 @@ public class ProgressWebView extends WebView {
         //是否可以缩放
         getSettings().setSupportZoom(true);
         getSettings().setBuiltInZoomControls(true);
+
+        getSettings().setDomStorageEnabled(true);
+
+        getSettings().setAppCacheMaxSize(5*1024*1024);
     }
 
     public class WebChromeClient extends android.webkit.WebChromeClient {

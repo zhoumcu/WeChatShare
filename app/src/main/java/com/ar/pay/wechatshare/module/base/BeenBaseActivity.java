@@ -41,6 +41,6 @@ public abstract class BeenBaseActivity<T extends Presenter> extends BeamBaseActi
         loadPressBar  = ((ProgressBar) findViewById(R.id.load_progress));
         Message msg = new Message();
         msg.what=0x123;
-        handler.sendMessageDelayed(msg,100);
+        handler.sendMessageDelayed(msg,1);
     }
 }
