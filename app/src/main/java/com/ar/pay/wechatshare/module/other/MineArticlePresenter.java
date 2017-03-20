@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.ar.pay.wechatshare.entity.ArticleBean;
-import com.ar.pay.wechatshare.entity.ContentBean;
 import com.ar.pay.wechatshare.entity.UserBean;
 import com.ar.pay.wechatshare.module.main.ArticlesDetail;
 import com.ar.pay.wechatshare.server.SchedulerTransform;
@@ -27,7 +26,7 @@ import rx.Observable;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class MineArticlePresenter extends BeamListActivityPresenter<MineArticlesActivity,ContentBean>{
+public class MineArticlePresenter extends BeamListActivityPresenter<MineArticlesActivity,ArticleBean>{
 
     @Override
     protected void onCreate(@NonNull MineArticlesActivity view, Bundle savedState) {
@@ -43,7 +42,7 @@ public class MineArticlePresenter extends BeamListActivityPresenter<MineArticles
             public void onItemClick(int position) {
                 Intent intent = new Intent(getView(),ArticlesDetail.class);
                 Bundle extras = new Bundle();
-                extras.putSerializable("DETAIL",(ContentBean)getAdapter().getItem(position));
+                extras.putSerializable("DETAIL",(ArticleBean)getAdapter().getItem(position));
                 intent.putExtras(extras);
                 getView().startActivity(intent);
             }
@@ -60,17 +59,17 @@ public class MineArticlePresenter extends BeamListActivityPresenter<MineArticles
         HttpHelper.getInstance().getPackage(100,0);
     }
     @Subscribe
-    public void onEventMainThread(ArticleBean bean) {
-        Observable<List<ContentBean>> observable = Observable.just(fillter(bean));
+    public void onEventMainThread(List<ArticleBean> bean) {
+        Observable<List<ArticleBean>> observable = Observable.just(fillter(bean));
         observable.compose(new SchedulerTransform<>())
                 .unsafeSubscribe(getRefreshSubscriber());
     }
 
-    private List<ContentBean> fillter(ArticleBean bean){
-        List<ContentBean> ls = new ArrayList<>();
+    private List<ArticleBean> fillter(List<ArticleBean> bean){
+        List<ArticleBean> ls = new ArrayList<>();
         UserBean userBean = SharedPreferences.getInstance().getUserInfo();
-        for (ContentBean contentBean: bean.getContent()){
-            if(contentBean.getUser().getName().equals(userBean.getUsername())){
+        for (ArticleBean contentBean: bean){
+            if(contentBean.getUsername().equals(userBean.getUsername())){
                 ls.add(contentBean);
             }
         }

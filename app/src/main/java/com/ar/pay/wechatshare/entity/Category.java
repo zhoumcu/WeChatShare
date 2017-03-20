@@ -16,14 +16,24 @@ import java.util.List;
 
 public class Category implements Serializable{
 
+
     /**
-     * category : 美食鉴赏
-     * categoryId : 0
+     * id : 2
+     * create_time : 1489446819000
+     * update_time : 1489446819000
+     * level : 1
+     * name : 科技
+     * state : USE
+     * channel_id : null
      */
 
-    private String category;
-    private int categoryId;
-    private int uiType;
+    private int id;
+    private long create_time;
+    private long update_time;
+    private int level;
+    private String name;
+    private String state;
+    private Object channel_id;
 
     public static List<Category> arrayCategoryFromData(String str) {
 
@@ -33,27 +43,59 @@ public class Category implements Serializable{
         return new Gson().fromJson(str, listType);
     }
 
-    public String getCategory() {
-        return category;
+    public int getId() {
+        return id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public long getCreate_time() {
+        return create_time;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCreate_time(long create_time) {
+        this.create_time = create_time;
     }
 
-    public int getUiType() {
-        return uiType;
+    public long getUpdate_time() {
+        return update_time;
     }
 
-    public void setUiType(int uiType) {
-        this.uiType = uiType;
+    public void setUpdate_time(long update_time) {
+        this.update_time = update_time;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Object getChannel_id() {
+        return channel_id;
+    }
+
+    public void setChannel_id(Object channel_id) {
+        this.channel_id = channel_id;
     }
 }

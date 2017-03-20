@@ -3,7 +3,7 @@ package com.ar.pay.wechatshare.module.main.fragment;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
-import com.ar.pay.wechatshare.entity.ContentBean;
+import com.ar.pay.wechatshare.entity.ArticleBean;
 import com.ar.pay.wechatshare.module.main.vholder.ArticleViewHolder;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListFragment;
@@ -16,7 +16,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * email：1032324589@qq.com
  */
 @RequiresPresenter(Home1FragmentPresenter.class)
-public class Home1Fragment extends BeamListFragment<Home1FragmentPresenter,ContentBean> {
+public class Home1Fragment extends BeamListFragment<Home1FragmentPresenter,ArticleBean> {
 
     public static Home1Fragment getFragment(int channelId){
         Home1Fragment home1Fragment = new Home1Fragment();
@@ -26,8 +26,8 @@ public class Home1Fragment extends BeamListFragment<Home1FragmentPresenter,Conte
         return home1Fragment;
     }
     @Override
-    public BaseViewHolder<ContentBean> getViewHolder(ViewGroup parent, int viewType) {
-        return new ArticleViewHolder(parent);
+    public BaseViewHolder<ArticleBean> getViewHolder(ViewGroup parent, int viewType) {
+        return new ArticleViewHolder(parent,getActivity());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.ar.pay.wechatshare.module.main;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,9 +13,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.ar.pay.wechatshare.R;
+import com.ar.pay.wechatshare.entity.Category;
 import com.ar.pay.wechatshare.module.main.fragment.CommonFragment;
+import com.ar.pay.wechatshare.module.main.fragment.Home1Fragment;
 import com.ar.pay.wechatshare.module.main.fragment.HomeFragment;
+import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
+import com.ar.pay.wechatshare.server.okhttp.RequestHandler;
 import com.jude.utils.JUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

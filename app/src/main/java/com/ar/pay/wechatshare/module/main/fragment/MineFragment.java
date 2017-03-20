@@ -42,8 +42,6 @@ public class MineFragment extends BeenFragment<MineFragmentPresenter> {
     TextView btnInfo;
     @BindView(R.id.btn_update)
     TextView btnUpdate;
-    @BindView(R.id.tv_articlecount)
-    TextView tvArticlecount;
     @BindView(R.id.tv_sharecount)
     TextView tvSharecount;
 

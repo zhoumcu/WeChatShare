@@ -38,6 +38,7 @@
             android:label="登录"/>
         <activity android:name=".wxapi.WXEntryActivity"
             android:exported="true"/>
+        <activity android:name=".module.other.PhotoActivity"/>
         <activity android:name=".module.other.MineShareActivity"/>
         <activity
             android:name="com.mob.tools.MobUIShell"

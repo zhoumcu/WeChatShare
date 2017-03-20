@@ -1,18 +1,19 @@
 package com.ar.pay.wechatshare.module.main;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewStub;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.app.APP;
-import com.ar.pay.wechatshare.entity.ContentBean;
+import com.ar.pay.wechatshare.entity.ArticleBean;
 import com.ar.pay.wechatshare.entity.UserBean;
-import com.ar.pay.wechatshare.module.base.BeenBaseActivity;
 import com.ar.pay.wechatshare.module.login.fragment.Login;
 import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
 import com.ar.pay.wechatshare.utils.Constants;
@@ -36,32 +37,27 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class ArticlesDetail extends BeenBaseActivity {
+public class ArticlesDetail extends AppCompatActivity {
     public static final String MY_TAG = "ArticlesDetail";
     private WebView webView;
     private String testUrl = "http://mp.weixin.qq.com/s?__biz=MzA5OTcxNDQwNg==&mid=501457379&idx=2&sn=987268b4b884103ac58421b5914b0953&mpshare=1&scene=1&srcid=0222FME9PXJT94mLQUjZhUBK#rd";
     private String articlesUrl;
-    private ContentBean article;
+    private ArticleBean article;
     private UserBean userBean;
+
     @Override
-    public int onCreateView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_test_1);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        article = (ContentBean) getIntent().getSerializableExtra("DETAIL");
+        article = (ArticleBean) getIntent().getSerializableExtra("DETAIL");
         userBean = SharedPreferences.getInstance().getUserInfo();
-        return R.layout.activity_main_test_2;
-    }
-
-
-    @Override
-    public void onDelayCreate(ViewStub viewStub) {
-        viewStub.inflate();
         webView = (WebView)findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         articlesUrl = HttpHelper.BaseURL+"api/page/"+article.getId();
         webView.loadUrl(articlesUrl);
         Log.e(MY_TAG,articlesUrl);
-//        HttpHelper.getInstance().postInfo(article.getId());
     }
 
     @Override
@@ -153,7 +149,7 @@ public class ArticlesDetail extends BeenBaseActivity {
         // text是分享文本，所有平台都需要这个字段
         oks.setText(article.getDescription());
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
-        oks.setImageUrl(HttpHelper.BaseURL+article.getMainPic());
+        oks.setImageUrl(HttpHelper.BaseURL+article.getMain_pic());
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用

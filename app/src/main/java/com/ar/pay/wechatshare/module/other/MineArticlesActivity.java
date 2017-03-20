@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-import com.ar.pay.wechatshare.entity.ContentBean;
+import com.ar.pay.wechatshare.entity.ArticleBean;
 import com.ar.pay.wechatshare.module.other.vholder.MineArticleViewHolder;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
@@ -18,7 +18,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * email：1032324589@qq.com
  */
 @RequiresPresenter(MineArticlePresenter.class)
-public class MineArticlesActivity extends BeamListActivity<MineArticlePresenter,ContentBean>{
+public class MineArticlesActivity extends BeamListActivity<MineArticlePresenter,ArticleBean>{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

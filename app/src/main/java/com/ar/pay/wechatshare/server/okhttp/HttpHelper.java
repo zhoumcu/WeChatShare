@@ -3,6 +3,7 @@ package com.ar.pay.wechatshare.server.okhttp;
 import android.util.Log;
 
 import com.ar.pay.wechatshare.entity.ArticleBean;
+import com.ar.pay.wechatshare.entity.Category;
 import com.ar.pay.wechatshare.entity.Result;
 import com.ar.pay.wechatshare.entity.ShareBean;
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,7 +26,8 @@ import okhttp3.Response;
  */
 public class HttpHelper {
 //    public static String BaseURL = "http://139.162.126.145:5050/";
-    public static String BaseURL = "http://139.162.126.145/";
+    public static String BaseURL = "http://www.gpdba.cn/";
+
 
     private static HttpHelper ourInstance = new HttpHelper();
     private ResultCode resultCode;
@@ -57,8 +60,7 @@ public class HttpHelper {
                 if(response.isSuccessful()){
                     String result = response.body().string();
                     System.out.println(result);
-                    Gson gson = new Gson();
-                    ArticleBean packlist = gson.fromJson(result,ArticleBean.class);
+                    List<ArticleBean> packlist =  ArticleBean.arrayArticleBeanFromData(result);
                     EventBus.getDefault().post(packlist);
                     if(resultCode!=null)
                         resultCode.onSucess(packlist);
@@ -182,7 +184,8 @@ public class HttpHelper {
                 if(response.isSuccessful()){
                     String result = response.body().string();
                     System.out.println(result);
-                    resultCode.onSucess(Result.objectFromData(result));
+                    resultCode.onSucess(Category.arrayCategoryFromData(result));
+//                    EventBus.getDefault().post(Category.arrayCategoryFromData(result));
                 }
             }
         });

@@ -1,5 +1,11 @@
 package com.ar.pay.wechatshare.entity;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,145 +14,106 @@ import java.util.List;
  * email：1032324589@qq.com
  */
 
-public class ArticleBean{
+public class ArticleBean implements Serializable{
+
     /**
-     * id : 17
-     * createTime : 1489793168000
-     * updateTime : 1489793168000
-     * title : uyfuyf
-     * user : {"id":1,"createTime":1488400747000,"updateTime":1488400747000,"username":"admin","password":"21232f297a57a5a743894a0e4a801fc3","name":"admin","email":null,"phone":null,"state":"USE","userType":"ADMIN"}
-     * channel_id : null
-     * author : 654986
-     * mainPic :
-     * video :
-     * conten :
-     * description :
-     * hits : null
-     * maxHits : 100
+     * id : 16
+     * title : 123
+     * main_pic : /uploads\2017\03\1489763765228.png
+     * description : 213123
+     * hits : 29
      * share : null
-     * voteUp : null
-     * state : PUSH
+     * num : null
+     * channel : 科技
      */
 
-    private List<ContentBean> content;
+    private int id;
+    private String title;
+    private String main_pic;
+    private String description;
+    private int hits;
+    private int share;
+    private int num;
+    private String channel;
+    private String username;
 
-    public List<ContentBean> getContent() {
-        return content;
+    public static List<ArticleBean> arrayArticleBeanFromData(String str) {
+
+        Type listType = new TypeToken<ArrayList<ArticleBean>>() {
+        }.getType();
+
+        return new Gson().fromJson(str, listType);
     }
 
-    public void setContent(List<ContentBean> content) {
-        this.content = content;
+    public String getUsername() {
+        return username;
     }
 
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getThumbnailUrl() {
-//        return thumbnailUrl;
-//    }
-//
-//    public void setThumbnailUrl(String thumbnailUrl) {
-//        this.thumbnailUrl = thumbnailUrl;
-//    }
-//
-//    public String getSummary() {
-//        return summary;
-//    }
-//
-//    public void setSummary(String summary) {
-//        this.summary = summary;
-//    }
-//
-//    public String getClassify() {
-//        return classify;
-//    }
-//
-//    public void setClassify(String classify) {
-//        this.classify = classify;
-//    }
-//
-//    public String getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(String author) {
-//        this.author = author;
-//    }
-//
-//    public String getPublishData() {
-//        return publishData;
-//    }
-//
-//    public void setPublishData(String publishData) {
-//        this.publishData = publishData;
-//    }
-//
-//    public String getFrom() {
-//        return from;
-//    }
-//
-//    public void setFrom(String from) {
-//        this.from = from;
-//    }
-//
-//    public int getPageView() {
-//        return pageView;
-//    }
-//
-//    public void setPageView(int pageView) {
-//        this.pageView = pageView;
-//    }
-//
-//    public int getShareView() {
-//        return shareView;
-//    }
-//
-//    public void setShareView(int shareView) {
-//        this.shareView = shareView;
-//    }
-//    @Override
-//    public String toString() {
-//        return "ArticleBean{" +
-//                "title='" + title + '\'' +
-//                ", thumbnailUrl='" + thumbnailUrl + '\'' +
-//                ", summary='" + summary + '\'' +
-//                ", classify='" + classify + '\'' +
-//                ", author='" + author + '\'' +
-//                ", publishData='" + publishData + '\'' +
-//                ", from='" + from + '\'' +
-//                ", pageView=" + pageView +
-//                ", shareView=" + shareView +
-//                '}';
-//    }
-//
-//    public ArticleBean(){
-//
-//    }
-//
-//    public ArticleBean(String title, String thumbnailUrl, String summary, String classify, String author, String publishData, String from, int pageView, int shareView) {
-//        this.title = title;
-//        this.thumbnailUrl = thumbnailUrl;
-//        this.summary = summary;
-//        this.classify = classify;
-//        this.author = author;
-//        this.publishData = publishData;
-//        this.from = from;
-//        this.pageView = pageView;
-//        this.shareView = shareView;
-//    }
-//
-//    private String title;//标题
-//    private String thumbnailUrl;//缩略图url
-//    private String summary;//摘要
-//    private String classify;//文章分类
-//    private String author;//作者
-//    private String publishData;//发布日期
-//    private String from;//来源
-//    private int pageView;//浏览量
-//    private int shareView;//分享量
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMain_pic() {
+        return main_pic;
+    }
+
+    public void setMain_pic(String main_pic) {
+        this.main_pic = main_pic;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
+    public void setHits(int hits) {
+        this.hits = hits;
+    }
+
+    public int getShare() {
+        return share;
+    }
+
+    public void setShare(int share) {
+        this.share = share;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
 }

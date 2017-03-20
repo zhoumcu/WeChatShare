@@ -1,5 +1,6 @@
 package com.ar.pay.wechatshare.module.main.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ar.pay.wechatshare.R;
-import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
-import com.ar.pay.wechatshare.server.okhttp.ResultCode;
+import com.ar.pay.wechatshare.entity.Category;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
@@ -35,7 +35,23 @@ public class HomeFragment extends BeamFragment<HomeFragmentPresenter> {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     String[] title = {"科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技","科技"};
-    private List<Fragment> flist = new ArrayList<>();
+    public List<Fragment> flist = new ArrayList<>();
+    public List<String> listStr = new ArrayList<>();
+    public myPagerAdapter adapter;
+    private Category category;
+
+    public static HomeFragment getFragment(Category category){
+        HomeFragment homeFragment = new HomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("category",category);
+        homeFragment.setArguments(bundle);
+        return homeFragment;
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        adapter = new myPagerAdapter(getChildFragmentManager());
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,30 +63,12 @@ public class HomeFragment extends BeamFragment<HomeFragmentPresenter> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData();
         viewPager.setOffscreenPageLimit(5);
-        viewPager.setAdapter(new HomeFragment.myPagerAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(adapter);
         tabs.setViewPager(viewPager);
     }
-    private void initData(){
-        HttpHelper.getInstance().getChannel(new ResultCode() {
-            @Override
-            public void onSucess(Object result) {
 
-            }
-
-            @Override
-            public void onErro() {
-
-            }
-        });
-        int lenght = title.length;
-        for(int i=0;i<lenght;i++){
-            Home1Fragment home = new Home1Fragment();
-            flist.add(home);
-        }
-    }
-    private class myPagerAdapter extends FragmentPagerAdapter{
+    public class myPagerAdapter extends FragmentPagerAdapter {
 
         public myPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -88,9 +86,14 @@ public class HomeFragment extends BeamFragment<HomeFragmentPresenter> {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return title[position];
+            return listStr.get(position);
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

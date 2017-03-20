@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.ar.pay.wechatshare.entity.ArticleBean;
-import com.ar.pay.wechatshare.entity.ContentBean;
 import com.ar.pay.wechatshare.module.main.ArticlesDetail;
 import com.ar.pay.wechatshare.server.DaggerServiceModelComponent;
 import com.ar.pay.wechatshare.server.SchedulerTransform;
@@ -26,7 +25,7 @@ import rx.Observable;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragment,ContentBean> {
+public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragment,ArticleBean> {
     private static final String TAG = Home1FragmentPresenter.class.getSimpleName();
     @Inject
     ServiceAPI serviceAPI;
@@ -50,12 +49,13 @@ public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragm
             public void onItemClick(int position) {
                 Intent intent = new Intent(getView().getActivity(),ArticlesDetail.class);
                 Bundle extras = new Bundle();
-                extras.putSerializable("DETAIL",(ContentBean)getAdapter().getItem(position));
+                extras.putSerializable("DETAIL",(ArticleBean)getAdapter().getItem(position));
                 intent.putExtras(extras);
                 getView().startActivity(intent);
                 pos = position;
             }
         });
+
     }
 
     @Override
@@ -81,15 +81,12 @@ public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragm
     @Override
     public void onRefresh() {
         super.onRefresh();
-        HttpHelper.getInstance(new ResultCode<ArticleBean>() {
+        HttpHelper.getInstance(new ResultCode<List<ArticleBean>>() {
             @Override
-            public void onSucess(ArticleBean bean) {
-                if(bean instanceof ArticleBean){
-                    ArticleBean articleBean = (ArticleBean)bean;
-                    Observable<List<ContentBean>> observable = Observable.just((articleBean).getContent());
-                    observable.compose(new SchedulerTransform<>())
-                            .unsafeSubscribe(getRefreshSubscriber());
-                }
+            public void onSucess(List<ArticleBean> bean) {
+                Observable<List<ArticleBean>> observable = Observable.just((bean));
+                observable.compose(new SchedulerTransform<>())
+                        .unsafeSubscribe(getRefreshSubscriber());
             }
             @Override
             public void onErro() {

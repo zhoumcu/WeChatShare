@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.app.APP;
-import com.ar.pay.wechatshare.entity.ContentBean;
+import com.ar.pay.wechatshare.entity.ArticleBean;
 import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
 import com.ar.pay.wechatshare.utils.Constants;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * company: xxxx
  * email：1032324589@qq.com
  */
-public class MineArticleViewHolder extends BaseViewHolder<ContentBean> {
+public class MineArticleViewHolder extends BaseViewHolder<ArticleBean> {
 
 
     @BindView(R.id.title)
@@ -42,16 +42,16 @@ public class MineArticleViewHolder extends BaseViewHolder<ContentBean> {
     }
 
     @Override
-    public void setData(ContentBean data) {
+    public void setData(ArticleBean data) {
         super.setData(data);
         Picasso.with(APP.getInstances().getApplicationContext())
-                .load(HttpHelper.BaseURL + data.getMainPic())
+                .load(HttpHelper.BaseURL + data.getMain_pic())
                 .resize(130, 80)
                 .centerCrop()
                 .into(imgIcon);
         title.setText(data.getTitle());
         tvRead.setText(Constants.setTextColor("阅读：" + data.getHits()));
-        tvShare.setText(Constants.setTextColor("分享：" + data.getShare()));
+        tvShare.setText(Constants.setTextColor("分享：" + data.getNum()));
         describer.setText(data.getDescription());
     }
 }
