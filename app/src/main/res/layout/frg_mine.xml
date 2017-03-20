@@ -55,7 +55,7 @@
             android:layout_height="100dp">
 
             <TextView
-                android:text="10"
+                android:text="--"
                 android:padding="@dimen/sp15"
                 android:textSize="@dimen/sp30"
                 android:textColor="@color/colorPrimaryDark"
@@ -87,7 +87,7 @@
             android:layout_height="100dp">
 
             <TextView
-                android:text="10"
+                android:text="--"
                 android:padding="@dimen/sp15"
                 android:textSize="@dimen/sp30"
                 android:textColor="@color/colorPrimaryDark"

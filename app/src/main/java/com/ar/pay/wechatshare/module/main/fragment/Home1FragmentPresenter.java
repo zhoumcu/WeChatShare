@@ -32,13 +32,14 @@ public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragm
     ServiceAPI serviceAPI;
     public int pos;
     private int size = 10;
-    private int totalPages = 0;
+    private int channelId;
 
     @Override
     protected void onCreate(@NonNull Home1Fragment view, Bundle savedState) {
         super.onCreate(view, savedState);
         DaggerServiceModelComponent.builder().build().inject(this);
 //        EventBus.getDefault().register(this);
+        channelId = getView().getArguments().getInt("channelId");
         onRefresh();
     }
     @Override
@@ -80,12 +81,11 @@ public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragm
     @Override
     public void onRefresh() {
         super.onRefresh();
-        HttpHelper.getInstance(new ResultCode() {
+        HttpHelper.getInstance(new ResultCode<ArticleBean>() {
             @Override
             public void onSucess(ArticleBean bean) {
                 if(bean instanceof ArticleBean){
                     ArticleBean articleBean = (ArticleBean)bean;
-                    totalPages = articleBean.getTotalPages();
                     Observable<List<ContentBean>> observable = Observable.just((articleBean).getContent());
                     observable.compose(new SchedulerTransform<>())
                             .unsafeSubscribe(getRefreshSubscriber());
@@ -95,7 +95,7 @@ public class Home1FragmentPresenter extends BeamListFragmentPresenter<Home1Fragm
             public void onErro() {
 
             }
-        }).getPackage(size);
+        }).getPackage(size,channelId);
     }
 
 //    @Override

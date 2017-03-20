@@ -3,6 +3,7 @@ package com.ar.pay.wechatshare.server.okhttp;
 import android.util.Log;
 
 import com.ar.pay.wechatshare.entity.ArticleBean;
+import com.ar.pay.wechatshare.entity.Result;
 import com.ar.pay.wechatshare.entity.ShareBean;
 import com.google.gson.Gson;
 
@@ -22,7 +23,8 @@ import okhttp3.Response;
  * email：1032324589@qq.com
  */
 public class HttpHelper {
-    public static String BaseURL = "http://139.162.126.145:5050/";
+//    public static String BaseURL = "http://139.162.126.145:5050/";
+    public static String BaseURL = "http://139.162.126.145/";
 
     private static HttpHelper ourInstance = new HttpHelper();
     private ResultCode resultCode;
@@ -39,9 +41,9 @@ public class HttpHelper {
     private HttpHelper() {
 
     }
-    public void getPackage(int pazeSize) {
+    public void getPackage(int pazeSize,int channelId) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder().url(BaseURL+"api/resource/"+pazeSize).build();
+        final Request request = new Request.Builder().url(BaseURL+"api/resource/v2/"+pazeSize+"/"+channelId).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -57,7 +59,7 @@ public class HttpHelper {
                     System.out.println(result);
                     Gson gson = new Gson();
                     ArticleBean packlist = gson.fromJson(result,ArticleBean.class);
-//                    EventBus.getDefault().post(packlist);
+                    EventBus.getDefault().post(packlist);
                     if(resultCode!=null)
                         resultCode.onSucess(packlist);
                 }
@@ -107,9 +109,6 @@ public class HttpHelper {
                 if(response.isSuccessful()){
                     String result = response.body().string();
                     System.out.println(result);
-//                Gson gson = new Gson();
-//                ArticleBean packlist = gson.fromJson(result,ArticleBean.class);
-//                EventBus.getDefault().post(packlist);
                 }
             }
         });
@@ -129,9 +128,6 @@ public class HttpHelper {
                     String result = response.body().string();
                     System.out.println(result);
                 }
-//                Gson gson = new Gson();
-//                ArticleBean packlist = gson.fromJson(result,ArticleBean.class);
-//                EventBus.getDefault().post(packlist);
             }
         });
     }
@@ -150,9 +146,44 @@ public class HttpHelper {
                     String result = response.body().string();
                     System.out.println(result);
                 }
-//                Gson gson = new Gson();
-//                ArticleBean packlist = gson.fromJson(result,ArticleBean.class);
-//                EventBus.getDefault().post(packlist);
+            }
+        });
+    }
+    public void getShareNum(int id,ResultCode resultCode) {
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(BaseURL+"api/user/share/"+id).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("获取apk列表失败");
+                Log.d("GetApkPackage", e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String result = response.body().string();
+                    System.out.println(result);
+                    resultCode.onSucess(Result.objectFromData(result));
+                }
+            }
+        });
+    }
+    public void getChannel(ResultCode resultCode) {
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(BaseURL+"/api/resource/channel").build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("获取apk列表失败");
+                Log.d("GetApkPackage", e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String result = response.body().string();
+                    System.out.println(result);
+                    resultCode.onSucess(Result.objectFromData(result));
+                }
             }
         });
     }

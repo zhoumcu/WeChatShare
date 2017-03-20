@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ar.pay.wechatshare.R;
+import com.ar.pay.wechatshare.server.okhttp.HttpHelper;
+import com.ar.pay.wechatshare.server.okhttp.ResultCode;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
@@ -51,6 +53,17 @@ public class HomeFragment extends BeamFragment<HomeFragmentPresenter> {
         tabs.setViewPager(viewPager);
     }
     private void initData(){
+        HttpHelper.getInstance().getChannel(new ResultCode() {
+            @Override
+            public void onSucess(Object result) {
+
+            }
+
+            @Override
+            public void onErro() {
+
+            }
+        });
         int lenght = title.length;
         for(int i=0;i<lenght;i++){
             Home1Fragment home = new Home1Fragment();

@@ -42,6 +42,10 @@ public class MineFragment extends BeenFragment<MineFragmentPresenter> {
     TextView btnInfo;
     @BindView(R.id.btn_update)
     TextView btnUpdate;
+    @BindView(R.id.tv_articlecount)
+    TextView tvArticlecount;
+    @BindView(R.id.tv_sharecount)
+    TextView tvSharecount;
 
     @Nullable
     @Override
@@ -54,10 +58,10 @@ public class MineFragment extends BeenFragment<MineFragmentPresenter> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnUpdate.setText("版本更新                           V"+ APP.getInstances().getVersionName());
+        btnUpdate.setText("版本更新                           V" + APP.getInstances().getVersionName());
     }
 
-    @OnClick({R.id.btn_info, R.id.btn_minearticle, R.id.btn_mineashare,R.id.btn_update})
+    @OnClick({R.id.btn_info, R.id.btn_minearticle, R.id.btn_mineashare, R.id.btn_update})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_info:
@@ -74,30 +78,31 @@ public class MineFragment extends BeenFragment<MineFragmentPresenter> {
                 break;
         }
     }
-    private void update(){
-        PgyUpdateManager.register(getActivity(),"",
-        new UpdateManagerListener() {
-            @Override
-            public void onUpdateAvailable(final String result) {
-                // 将新版本信息封装到AppBean中
-                final AppBean appBean = getAppBeanFromString(result);
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("更新")
-                        .setMessage(appBean.getReleaseNote())
-                        .setNegativeButton("确定",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        startDownloadTask(getActivity(), appBean.getDownloadURL());
-                                    }
-                                }).show();
-            }
 
-            @Override
-            public void onNoUpdateAvailable() {
-                Toast.makeText(getContext(),"没有新版本！",Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void update() {
+        PgyUpdateManager.register(getActivity(), "",
+                new UpdateManagerListener() {
+                    @Override
+                    public void onUpdateAvailable(final String result) {
+                        // 将新版本信息封装到AppBean中
+                        final AppBean appBean = getAppBeanFromString(result);
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("更新")
+                                .setMessage(appBean.getReleaseNote())
+                                .setNegativeButton("确定",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                startDownloadTask(getActivity(), appBean.getDownloadURL());
+                                            }
+                                        }).show();
+                    }
+
+                    @Override
+                    public void onNoUpdateAvailable() {
+                        Toast.makeText(getContext(), "没有新版本！", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

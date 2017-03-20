@@ -57,11 +57,10 @@ public class MineArticlePresenter extends BeamListActivityPresenter<MineArticles
     @Override
     public void onRefresh() {
         super.onRefresh();
-        HttpHelper.getInstance().getPackage(10);
+        HttpHelper.getInstance().getPackage(100,0);
     }
     @Subscribe
     public void onEventMainThread(ArticleBean bean) {
-
         Observable<List<ContentBean>> observable = Observable.just(fillter(bean));
         observable.compose(new SchedulerTransform<>())
                 .unsafeSubscribe(getRefreshSubscriber());
