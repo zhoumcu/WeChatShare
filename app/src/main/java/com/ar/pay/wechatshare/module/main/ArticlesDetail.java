@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 import com.ar.pay.wechatshare.R;
 import com.ar.pay.wechatshare.app.APP;
@@ -22,7 +23,6 @@ import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
-import com.tencent.smtt.sdk.WebView;
 
 import org.greenrobot.eventbus.EventBus;
 
